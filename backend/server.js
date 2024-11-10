@@ -49,8 +49,8 @@ app.use(cookieParser());
 app.use(errorHandler);
 
 // Define routes directly instead of using fs to read directory
-import authRoutes from "./src/routes/auth.js"; // Import your route files directly
-import tasksRoutes from "./src/routes/tasks.js"; // Add all your route files
+import authRoutes from "./src/routes/userRoutes.js"; // Import your route files directly
+import tasksRoutes from "./src/routes/tasksRoutes.js"; // Add all your route files
 // Import other route files as needed
 
 // Use routes
