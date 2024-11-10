@@ -7,7 +7,7 @@
       "config": {
         "includeFiles": [
           "backend/**",
-          "src/**",
+          "src/**/*",
           "backend/package.json",
           "backend/package-lock.json"
         ]
@@ -17,11 +17,11 @@
   "routes": [
     {
       "src": "/api/v1/(.*)",
-      "dest": "backend/server.js"
+      "dest": "server.js"
     },
     {
       "src": "/(.*)",
-      "dest": "backend/server.js"
+      "dest": "server.js"
     }
   ]
 }
