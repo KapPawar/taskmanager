@@ -4,7 +4,13 @@ import cors from "cors";
 import connect from "./src/db/connect.js";
 import cookieParser from "cookie-parser";
 import fs from "node:fs";
+import path from "path";
+import { fileURLToPath } from "url";
 import errorHandler from "./src/helpers/errorhandler.js";
+
+// Get current directory path (ESM equivalent of __dirname)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config();
 
@@ -42,19 +48,15 @@ app.use(cookieParser());
 // error handler middleware
 app.use(errorHandler);
 
-//routes
-const routeFiles = fs.readdirSync("./src/routes");
+// Define routes directly instead of using fs to read directory
+import authRoutes from "./src/routes/auth.js"; // Import your route files directly
+import tasksRoutes from "./src/routes/tasks.js"; // Add all your route files
+// Import other route files as needed
 
-routeFiles.forEach((file) => {
-  // use dynamic import
-  import(`./src/routes/${file}`)
-    .then((route) => {
-      app.use("/api/v1", route.default);
-    })
-    .catch((err) => {
-      console.log("Failed to load route file", err);
-    });
-});
+// Use routes
+app.use("/api/v1", authRoutes);
+app.use("/api/v1", tasksRoutes);
+// Use other routes as needed
 
 const server = async () => {
   try {
@@ -64,9 +66,11 @@ const server = async () => {
       console.log(`Server is running on port ${port}`);
     });
   } catch (error) {
-    console.log("Failed to strt server.....", error.message);
+    console.log("Failed to start server.....", error.message);
     process.exit(1);
   }
 };
 
 server();
+
+export default app; // Add this for Vercel
