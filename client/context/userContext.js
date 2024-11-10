@@ -10,9 +10,9 @@ axios.defaults.withCredentials = true;
 // const serverUrl = "http://localhost:8000";
 
 export const UserContextProvider = ({ children }) => {
-  const serverUrl = "http://localhost:8000";
-  // const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL
-  // console.log(serverUrl)
+  // const serverUrl = "http://localhost:8000";
+  const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
+  console.log(serverUrl);
   // console.log(serverUrl)
   const router = useRouter();
 
@@ -140,6 +140,7 @@ export const UserContextProvider = ({ children }) => {
     try {
       const res = await axios.get(`${serverUrl}/api/v1/user`, {
         withCredentials: true, // send cookies to the server
+        "x-vercel-protection-bypass": "thisisabypasstokenforautomationa",
       });
 
       setUser((prevState) => {
