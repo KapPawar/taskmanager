@@ -5,7 +5,12 @@
       "src": "server.js",
       "use": "@vercel/node",
       "config": {
-        "includeFiles": ["src/**/*"]
+        "includeFiles": [
+          "backend/**",
+          "src/**",
+          "backend/package.json",
+          "backend/package-lock.json"
+        ]
       }
     }
   ],
